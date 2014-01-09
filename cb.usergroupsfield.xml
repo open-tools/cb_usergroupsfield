@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0.0" type="plugin" group="user">
+	<name>CB Usergroups Field</name>
+	<author>Reiunhold Kainhofer</author>
+	<creationDate>2014-01-09</creationDate>
+	<copyright>(C) 2014 Open Tools, Reinhold Kainhofer</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2 or later</license>
+	<authorEmail>office@open-tools.net</authorEmail>
+	<authorUrl>www.open-tools.net</authorUrl>
+	<version>1.2</version>
+	<description>
+		A Community Builder field plugin that displays the Joomla groups in the profile and lets administrator modify the groups in the profile.
+	</description>
+	<files>
+		<filename plugin="cb.usergroupsfield">cb.usergroupsfield.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<fieldtypes>
+		<field type="usergroupsfield" label="User Groups Field">
+			<params>
+				<param name="usergroups" type="custom" class="CBfield_usergroups" method="getUsergroups" default="" label="User groups offered for selection" description="Select the user groups that are offered to the moderator." />
+				<param name="moderator_usergroups" type="custom" class="CBfield_usergroups" method="getUsergroups" default="" label="Authorized user groups" description="Select the user groups that are authorized to change the user groups. WARNING: If you allow changes to normal users, they will be able to mess up things!" />
+				<param name="field_display_style" type="list" default="0" label="Display on profiles as" description="How to display the values of this multi-valued field">
+					<option value="0">Comma ","-separated line</option>
+					<option value="1">Unnumbered list "ul"</option>
+					<option value="2">Ordered list "ol"</option>
+				</param>
+				<if name="field_display_style" type="showhide" operator="&gt;" value="0" valuetype="const:int">
+					<param name="field_display_class" type="text" size="40" default="" label="CSS class of the list" description="Enter the name of the list class (optional) for OL or UL tag" />
+				</if>
+				<param name="restrict_display_selected" type="list" default="1" label="Groups display" description="Select whether the profile entry will display all group memberships or only those of the selected groups above. In any case, only the selected groups can be modified by the moderator.">
+					<option value="0">Show all groups in profile</option>
+					<option value="1">Restrict profile display to selected groups</option>
+					</param>
+			</params>
+		</field>
+	</fieldtypes>
+	<fieldsparams>
+	</fieldsparams>
+	<params>
+	</params>
+	<install>
+	</install>
+	<uninstall>
+	</uninstall>
+	<database>
+	</database>
+</cbinstall>
