@@ -92,6 +92,18 @@ class CBfield_usergroups extends cbFieldHandler {
 		return $result;
 	}
 
+	/**
+	 * HIDE the field in the backend, because there we already have the full group selection box displayed! 
+	 */
+	function getFieldRow( &$field, &$user, $output, $formatting, $reason, $list_compare_types ) {
+		global $_CB_framework;
+		if( $_CB_framework->getUi() == 2 ) {
+			return null;
+		} else {
+			return parent::getFieldRow( $field, $user, $output, $formatting, $reason, $list_compare_types );
+		}
+	}
+
 
 	/**
 	 * Accessor:
