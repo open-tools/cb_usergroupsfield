@@ -1,6 +1,6 @@
 <?php
 /**
-* Joomla Community Builder User groups Field Type Plugin: plug_cbusergroupsfield
+* Joomla Community Builder 2.x User groups Field Type Plugin: plug_cbusergroupsfield
 * Lets the administrator change the user's joomla groups in the CB profile in the FE.
 * Based on the CBfield_userparams class of the cb.core.php plugin, copyright (C) Beat, JoomlaJoe, www.joomlapolis.com and various
 * @version $Id$
@@ -12,8 +12,11 @@
 * @final 1.2
 */
 
+
 /** ensure this file is being included by a parent file */
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+use CBLib\Application\Application;
 
 global $_PLUGINS;
 $_PLUGINS->loadPluginGroup( 'user', array( (int) 1 ) );
@@ -151,11 +154,12 @@ class CBfield_usergroups extends cbFieldHandler {
 				if ($reason=='search')
 					return null;
 
-				$i_am_super_admin				=	$_CB_framework->acl->amIaSuperAdmin();
-				$canModifyUser					=	CBuser::getMyInstance()->authoriseAction( 'core.edit', 'com_users' )
-													|| CBuser::getMyInstance()->authoriseAction( 'core.edit.state', 'com_users' );
+				$i_am_super_admin				=	Application::MyUser()->isSuperAdmin();
+				// Use only the selected groups, do NOT require the group to have edit rights in the Backend!
+				$canModifyUser					=	true/*CBuser::getMyInstance()->authoriseAction( 'core.edit', 'com_users' )
+													|| CBuser::getMyInstance()->authoriseAction( 'core.edit.state', 'com_users' )*/;
 
-				$my_groups						= $_CB_framework->acl->getGroupIds($_CB_framework->myId());
+				$my_groups						= Application::MyUser()->getAuthorisedGroups(false);
 				$i_am_authorized				= count(array_intersect($my_groups, $authorized_groups))>0;
 
 				if ( $i_am_super_admin || ($canModifyUser && $i_am_authorized)) {
@@ -203,11 +207,12 @@ class CBfield_usergroups extends cbFieldHandler {
 
 		global $_CB_framework;
 
-		$i_am_super_admin		=	$_CB_framework->acl->amIaSuperAdmin();
-		$canModifyUser			=	CBuser::getMyInstance()->authoriseAction( 'core.edit', 'com_users' )
-									|| CBuser::getMyInstance()->authoriseAction( 'core.edit.state', 'com_users' );
+		$i_am_super_admin		=	Application::MyUser()->isSuperAdmin();
+		// Use only the selected groups, do NOT require the group to have edit rights in the Backend!
+		$canModifyUser					=	true/*CBuser::getMyInstance()->authoriseAction( 'core.edit', 'com_users' )
+											|| CBuser::getMyInstance()->authoriseAction( 'core.edit.state', 'com_users' )*/;
 
-		$my_groups				=	$_CB_framework->acl->getGroupIds($_CB_framework->myId());
+		$my_groups				=	Application::MyUser()->getAuthorisedGroups(false);
 		$authorized_groups		=	$this->_explodeCBvalues($field->params->get('moderator_usergroups', ''));
 		$i_am_authorized		=	count(array_intersect($my_groups, $authorized_groups))>0;
 

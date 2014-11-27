@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0.0" type="plugin" group="user">
+<cbinstall version="1.0" type="plugin" group="user">
 	<name>CB Usergroups Field</name>
-	<author>Reiunhold Kainhofer</author>
+	<author>Reinhold Kainhofer</author>
 	<creationDate>2014-01-09</creationDate>
 	<copyright>(C) 2014 Open Tools, Reinhold Kainhofer</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2 or later</license>
 	<authorEmail>office@open-tools.net</authorEmail>
 	<authorUrl>www.open-tools.net</authorUrl>
-	<version>1.2</version>
+	<version>2.0.0</version>
 	<description>
 		A Community Builder field plugin that displays the Joomla groups in the profile and lets administrator modify the groups in the profile.
 	</description>
@@ -31,7 +31,7 @@
 				<param name="restrict_display_selected" type="list" default="1" label="Groups display" description="Select whether the profile entry will display all group memberships or only those of the selected groups above. In any case, only the selected groups can be modified by the moderator.">
 					<option value="0">Show all groups in profile</option>
 					<option value="1">Restrict profile display to selected groups</option>
-					</param>
+				</param>
 			</params>
 		</field>
 	</fieldtypes>
