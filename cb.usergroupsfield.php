@@ -126,6 +126,16 @@ class CBfield_usergroups extends cbFieldHandler {
 				$lang->load( 'com_users' );
 		}
 		$gids					=	$user->gids;
+		if (empty($gids)) {
+			// Load the user groups from the database, because in list view the gids are NOT loaded!
+			// This is from CB\Database\Table\UserTable::afterBindFromDatabase,
+			// which is documented as WIP and not adviced to be called directly,
+			// so we duplicate the code here...
+			$gids			=	array_values( (array) \JFactory::getAcl()->getGroupsByUser( $this->id, false ) );
+			foreach ( $gids as $k => $v ) {
+				$gids[$k]	=	(string) $v;
+			}
+		}
 		$allgroups				=	$this->getUserGroupsMap();
 		$restrictedgroups		=	$this->_explodeCBvalues($field->params->get('usergroups', ''));
 		$restrict				=	$field->params->get('restrict_display_selected', 1);

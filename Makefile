@@ -1,7 +1,7 @@
 BASE=usergroupsfield
 PLUGINTYPE=plug
 ZIPBASE=opentools_cb2
-VERSION=2.0.0
+VERSION=2.0.1
 
 PLUGINFILES=cb.$(BASE).php cb.$(BASE).xml
 
