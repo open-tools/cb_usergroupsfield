@@ -3,7 +3,7 @@
 * Joomla Community Builder 2.x User groups Field Type Plugin: plug_cbusergroupsfield
 * Lets the administrator change the user's joomla groups in the CB profile in the FE.
 * Based on the CBfield_userparams class of the cb.core.php plugin, copyright (C) Beat, JoomlaJoe, www.joomlapolis.com and various
-* @version $Id$
+* @version 2.0.1
 * @package plug_cbusergroupsfield
 * @subpackage cb.usergroupsfield.php
 * @author Reinhold Kainhofer, Open Tools
@@ -131,7 +131,7 @@ class CBfield_usergroups extends cbFieldHandler {
 			// This is from CB\Database\Table\UserTable::afterBindFromDatabase,
 			// which is documented as WIP and not adviced to be called directly,
 			// so we duplicate the code here...
-			$gids			=	array_values( (array) \JFactory::getAcl()->getGroupsByUser( $this->id, false ) );
+			$gids			=	array_values( (array) \JFactory::getAcl()->getGroupsByUser( $user->id, false ) );
 			foreach ( $gids as $k => $v ) {
 				$gids[$k]	=	(string) $v;
 			}
